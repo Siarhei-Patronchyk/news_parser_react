@@ -1,7 +1,7 @@
 {
-  "name": "react-tutorial",
+  "name": "news_parser_react",
   "version": "0.0.0",
-  "description": "Code from the React tutorial.",
+  "description": "Parser for news from NashaNiva, Onliner.by&TUT.by",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.4.3",
@@ -17,19 +17,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/reactjs/react-tutorial.git"
+    "url": "https://github.com/Siarhei-Patronchyk/news_parser_react.git"
   },
   "keywords": [
     "react",
-    "tutorial",
-    "comment",
-    "example"
+    "parser"
   ],
-  "author": "petehunt",
+  "author": "Siarhei Patronchyk",
   "bugs": {
-    "url": "https://github.com/reactjs/react-tutorial/issues"
+    "url": "https://github.com/Siarhei-Patronchyk/news_parser_react.git"
   },
-  "homepage": "https://github.com/reactjs/react-tutorial",
+  "homepage": "https://github.com/Siarhei-Patronchyk/news_parser_react.git",
   "engines": {
     "node": "0.12.x"
   }
