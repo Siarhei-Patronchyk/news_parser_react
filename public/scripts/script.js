@@ -1,7 +1,8 @@
 var NewsBox = React.createClass({
+
           loadNewsFromServer: function() {
             $.ajax({
-              url: this.props.url,
+              url: this.state.url,
               dataType: 'json',
               cache: false,
               success: function(data) {
@@ -12,37 +13,77 @@ var NewsBox = React.createClass({
               }.bind(this)
             });
           },
-          getInitialState: function() {
-            return {data: []};
+          handleNewsSelect: function(value) {
+            this.setState({url: value.url});
+            this.loadNewsFromServer();
           },
-          componentDidMount: function() {
+          getInitialState: function() {
+            return {url: '/news', data: []};
+          },
+          componentDidMount: function() {           
             this.loadNewsFromServer();
             setInterval(this.loadNewsFromServer, this.props.pollInterval);
           },
           render: function() {
 
-          return (<div className="newsBox"><h1>Свежыя навiны</h1><NewsList data={this.state.data}/><NewsForm /></div>);
+          return (<div className="newsBox container-fluid"><h1>Свежыя навiны</h1><NewsForm onNewsSelect={this.handleNewsSelect}/><NewsList data={this.state.data}/></div>);
         }
 });
 var NewsList = React.createClass({
         render: function() {
           var newsNodes = this.props.data.map(function(news) {
 
-          return (<div className="newsList"><News title={news.title} key={news.id}  url={news.url} src={news.imgSrc}></News></div>);
+          return (
+            <div class="item container">
+              <div className="newsList">
+                <News title={news.title} key={news.id} url={news.url} src={news.imgSrc}>
+                </News>
+              </div>
+            </div>
+            );
           });
-          return (<div className="newsList">{newsNodes}</div>)
+          return (
+            <div class="container-fluid">
+              <div className="newsList">
+                {newsNodes}
+              </div>
+            </div>
+            );
         }
 });
 var NewsForm = React.createClass({
+        getInitialState: function() {
+          return {value: ''};
+        },
+        handleClick: function(e) {
+          e.preventDefault();
+          this.setState({value: e.target.id});
+          this.props.onNewsSelect({url: e.target.id})
+        },
         render: function() {
-          return(<div className="newsForm">Hello3</div>);
+          return(
+              <div className="newsForm row" onClick={this.handleClick}>
+                <button id="/news">Nasha Niva</button>
+                <button id="/newsonliner">Onliner.by</button>
+                <button id="/newstutby">TUT.by</button>
+              </div>
+          );
         }
       });
-      var News = React.createClass({
+var News = React.createClass({
         render: function() {
 
-          return(<div clasName="news"><a href={this.props.url}><h2 className="newsTitle">{this.props.title}</h2><img src={this.props.src}/></a>{this.props.children}</div>);
+          return(
+            <div className="news news-item nn-item text-center col-md-4 col-xs-12 col-sm-12">
+              <a href={this.props.url}>
+                <p className="newsTitle text-justify">
+                  {this.props.title}
+                </p>
+                <img src={this.props.src} className="img-responsive img-thumbnail img-center" />
+              </a>
+            {this.props.children}
+            </div>);
         }
 });
 
-ReactDOM.render(<NewsBox url="/news" pollInterval={2000} />, document.getElementById('content'));
+ReactDOM.render(<NewsBox pollInterval={2000} />, document.getElementById('content'));

@@ -50,7 +50,7 @@ function requestParser(){
       $('article.b-posts-1-item').each(function(){
         newsOnliner.push({
           title: $('h3 a span', this).text(),
-          img: $('article figure a img', this).attr('src'),
+          imgSrc: $('article figure a img', this).attr('src'),
           url:$('.b-posts-1-item__text a', this).attr('href')
         });
       })
@@ -66,7 +66,7 @@ function requestParser(){
       $('.lists__li').each(function(){
         newsTut.push({
           title: $('.lists__li a', this).text(),
-          img: $('.media img', this).attr('src'),
+          imgSrc: $('.media img', this).attr('src'),
           url:$('.media a', this).attr('href')
         });
       })
@@ -77,6 +77,16 @@ function requestParser(){
 app.get('/news', function (req,res) {
   requestParser();
   res.json(news);
+})
+
+app.get('/newsonliner', function (req,res) {
+  requestParser();
+  res.json(newsOnliner);
+})
+
+app.get('/newstutby', function (req,res) {
+  requestParser();
+  res.json(newsTut);
 })
 
 app.listen(app.get('port'), function() {
