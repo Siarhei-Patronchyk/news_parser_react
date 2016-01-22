@@ -5,7 +5,6 @@ var News = require("./news");
 
 var NewsBox = React.createClass({
           loadNewsFromServer: function(url) {
-            console.count("loadNewsFromServer");
             $.ajax({
               url: url,
               dataType: 'json',
@@ -21,7 +20,7 @@ var NewsBox = React.createClass({
           getInitialState: function() {
             return {url: '/news', data: []};
           },
-          componentWillMount: function() { 
+          componentDidMount: function() { 
             this.loadNewsFromServer(this.state.url);
           },
           handleNewsSelect: function(url) {
@@ -31,7 +30,6 @@ var NewsBox = React.createClass({
             return (
               <div className="newsBox container-fluid">
                 <h1>Свежыя навiны</h1>
-                <strong>{this.state.url}</strong>
                 <NewsForm onNewsSelect={this.handleNewsSelect} />
                 <NewsList data={this.state.data} />
               </div>

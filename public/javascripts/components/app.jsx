@@ -5,7 +5,7 @@ var App = React.createClass({
   render() {
     return (
     <div>
-      <NewsBox pollInervall={2000}/>
+      <NewsBox />
     </div>
     );
   }

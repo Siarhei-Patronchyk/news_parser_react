@@ -64,6 +64,7 @@ function requestParser(){
     }
   });
 };
+  requestParser();
 
 require("node-jsx").install({
     harmony: true, 
@@ -75,8 +76,8 @@ var React = require("react"),
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  var markup = React.renderToString(App());      
-  requestParser();
+  var markup = React.renderToString(App());  
+  requestParser();    
   res.render('index', { 
     title: 'Express',
     markup: markup 

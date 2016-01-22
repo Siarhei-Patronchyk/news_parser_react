@@ -18916,7 +18916,7 @@
 	  render:function() {
 	    return (
 	    React.createElement("div", null, 
-	      React.createElement(NewsBox, {pollInervall: 2000})
+	      React.createElement(NewsBox, null)
 	    )
 	    );
 	  }
@@ -18935,7 +18935,6 @@
 
 	var NewsBox = React.createClass({displayName: "NewsBox",
 	          loadNewsFromServer: function(url) {
-	            console.count("loadNewsFromServer");
 	            $.ajax({
 	              url: url,
 	              dataType: 'json',
@@ -18951,7 +18950,7 @@
 	          getInitialState: function() {
 	            return {url: '/news', data: []};
 	          },
-	          componentWillMount: function() { 
+	          componentDidMount: function() { 
 	            this.loadNewsFromServer(this.state.url);
 	          },
 	          handleNewsSelect: function(url) {
@@ -18961,7 +18960,6 @@
 	            return (
 	              React.createElement("div", {className: "newsBox container-fluid"}, 
 	                React.createElement("h1", null, "Свежыя навiны"), 
-	                React.createElement("strong", null, this.state.url), 
 	                React.createElement(NewsForm, {onNewsSelect: this.handleNewsSelect}), 
 	                React.createElement(NewsList, {data: this.state.data})
 	              )
@@ -18979,11 +18977,7 @@
 	var News = __webpack_require__(151);
 
 	var NewsForm = React.createClass({displayName: "NewsForm",
-	        // getInitialState: function() {
-	        //   return {value: ''};
-	        // },
 	        handleClick: function(e) {
-	          //this.setState({value: e.target.id});
 	          this.props.onNewsSelect(e.target.id);
 	        },
 	        render: function() {
