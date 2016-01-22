@@ -2,12 +2,12 @@ var React = require("react");
 var News = require("./news");
 
 var NewsForm = React.createClass({
-        getInitialState: function() {
-          return {value: ''};
-        },
+        // getInitialState: function() {
+        //   return {value: ''};
+        // },
         handleClick: function(e) {
-          this.setState({value: e.target.id});
-          this.props.onNewsSelect({url: e.target.id})
+          //this.setState({value: e.target.id});
+          this.props.onNewsSelect(e.target.id);
         },
         render: function() {
           return(

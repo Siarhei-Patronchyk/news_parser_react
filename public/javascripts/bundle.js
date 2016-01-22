@@ -18916,7 +18916,7 @@
 	  render:function() {
 	    return (
 	    React.createElement("div", null, 
-	      React.createElement(NewsBox, {pollInterval: 100})
+	      React.createElement(NewsBox, {pollInervall: 2000})
 	    )
 	    );
 	  }
@@ -18934,35 +18934,34 @@
 	var News = __webpack_require__(151);
 
 	var NewsBox = React.createClass({displayName: "NewsBox",
-	          loadNewsFromServer: function() {
+	          loadNewsFromServer: function(url) {
+	            console.count("loadNewsFromServer");
 	            $.ajax({
-	              url: this.state.url,
+	              url: url,
 	              dataType: 'json',
 	              cache: true,
 	              success: function(data) {
-	                this.setState({data: data});
+	                this.setState({url: this.state.url, data: data});
+	              }.bind(this),
+	              error: function(xhr, status, err) {
+	                console.error(this.props.url, status, err.toString());
 	              }.bind(this)
-	//              error: function(xhr, status, err) {
-	//                console.error(this.props.url, status, err.toString());
-	//              }.bind(this)
 	            });
 	          },
 	          getInitialState: function() {
 	            return {url: '/news', data: []};
 	          },
-	          componentDidMount: function() {           
-	            this.loadNewsFromServer();
-	            setInterval(this.loadNewsFromServer, this.props.pollInterval);
+	          componentWillMount: function() { 
+	            this.loadNewsFromServer(this.state.url);
 	          },
-	          handleNewsSelect: function(value) {
-	            debugger;
-	            this.replaceState({url: value.url});
-	            this.loadNewsFromServer();
+	          handleNewsSelect: function(url) {
+	            this.loadNewsFromServer(url);
 	          },
 	          render: function() {
 	            return (
 	              React.createElement("div", {className: "newsBox container-fluid"}, 
 	                React.createElement("h1", null, "Свежыя навiны"), 
+	                React.createElement("strong", null, this.state.url), 
 	                React.createElement(NewsForm, {onNewsSelect: this.handleNewsSelect}), 
 	                React.createElement(NewsList, {data: this.state.data})
 	              )
@@ -18980,12 +18979,12 @@
 	var News = __webpack_require__(151);
 
 	var NewsForm = React.createClass({displayName: "NewsForm",
-	        getInitialState: function() {
-	          return {value: ''};
-	        },
+	        // getInitialState: function() {
+	        //   return {value: ''};
+	        // },
 	        handleClick: function(e) {
-	          this.setState({value: e.target.id});
-	          this.props.onNewsSelect({url: e.target.id})
+	          //this.setState({value: e.target.id});
+	          this.props.onNewsSelect(e.target.id);
 	        },
 	        render: function() {
 	          return(
@@ -19033,14 +19032,8 @@
 	var NewsList = React.createClass({displayName: "NewsList",
 	        render: function() {
 	          var newsNodes = this.props.data.map(function(news) {
-
-	          return (
-	            React.createElement("div", {class: "item container"}, 
-	              React.createElement("div", {className: "newsList"}, 
-	                React.createElement(News, {title: news.title, key: news.id, url: news.url, src: news.imgSrc}
-	                )
-	              )
-	            )
+	            return (
+	              React.createElement(News, {title: news.title, key: news.id, url: news.url, src: news.imgSrc})
 	            );
 	          });
 	          return (
@@ -19049,7 +19042,7 @@
 	                newsNodes
 	              )
 	            )
-	            );
+	           );
 	        }
 	});
 

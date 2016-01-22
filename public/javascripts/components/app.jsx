@@ -5,7 +5,7 @@ var App = React.createClass({
   render() {
     return (
     <div>
-      <NewsBox pollInterval={100} />
+      <NewsBox pollInervall={2000}/>
     </div>
     );
   }
