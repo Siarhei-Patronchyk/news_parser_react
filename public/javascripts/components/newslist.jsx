@@ -5,7 +5,7 @@ var NewsList = React.createClass({
         render: function() {
           var newsNodes = this.props.data.map(function(news) {
             return (
-              <News title={news.title} key={news.id} url={news.url} src={news.imgSrc} />
+              <News title={news.title} key={news.id} url={news.url} src={news.imgSrc} source={news.source} />
             );
           });
           return (

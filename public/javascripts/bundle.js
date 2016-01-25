@@ -19000,12 +19000,16 @@
 	var React = __webpack_require__(1);
 
 	var News = React.createClass({displayName: "News",
+
 	        render: function() {
 	          return(
 	            React.createElement("div", {className: "news news-item nn-item text-center col-md-4 col-xs-12 col-sm-12"}, 
 	              React.createElement("a", {href: this.props.url}, 
 	                React.createElement("p", {className: "newsTitle text-justify"}, 
-	                  this.props.title
+	                  this.props.title, 
+	                  React.createElement("br", null, 
+	                    React.createElement("strong", null, this.props.source)
+	                  )
 	                ), 
 	                React.createElement("img", {src: this.props.src, className: "img-responsive img-thumbnail img-center"})
 	              ), 
@@ -19027,7 +19031,7 @@
 	        render: function() {
 	          var newsNodes = this.props.data.map(function(news) {
 	            return (
-	              React.createElement(News, {title: news.title, key: news.id, url: news.url, src: news.imgSrc})
+	              React.createElement(News, {title: news.title, key: news.id, url: news.url, src: news.imgSrc, source: news.source})
 	            );
 	          });
 	          return (
